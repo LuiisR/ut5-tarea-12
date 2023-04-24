@@ -15,14 +15,11 @@ public class Aeropuerto {
      * aerolinea como el vuelo.
      */
     public void addVuelo(String aerolinea, Vuelo vuelo) {
-        if (vuelos.containsKey(aerolinea)) {
-            Set<Vuelo> claves = vuelos.get(aerolinea);
-            claves.add(vuelo);
-        } else {
-            Set<Vuelo> claves = new TreeSet<>();
-            claves.add(vuelo);
-            vuelos.put(aerolinea, claves);
+        if (!vuelos.containsKey(aerolinea)) {
+            vuelos.put(aerolinea, new HashSet<>());
         }
+        Set<Vuelo> vuelas = vuelos.get(aerolinea);
+        vuelas.add(vuelo);
     }
 
     /**
@@ -51,10 +48,14 @@ public class Aeropuerto {
         if (vuelos.containsKey(aerolinea)) {
             for (Map.Entry<String, Set<Vuelo>> v1 : vuelos.entrySet()) {
                 Set<Vuelo> listaVuelos = v1.getValue();
-                ComparadorPlazas comparador = new ComparadorPlazas();
-                Set<Vuelo> listaVuelosOrdenados = new TreeSet<>(comparador);
-                listaVuelosOrdenados.addAll(listaVuelos);
-                for (Vuelo v : listaVuelosOrdenados) {
+                List<Vuelo> listaVuelosOrdenada = new ArrayList<>(listaVuelos);
+                listaVuelosOrdenada.sort(new Comparator<Vuelo>() {
+                    @Override
+                    public int compare(Vuelo o1, Vuelo o2) {
+                        return o2.getNumPlazas() - o1.getNumPlazas();
+                    }
+                });
+                for (Vuelo v : listaVuelosOrdenada) {
                     if (v instanceof Regular) {
                         System.out.println(v.toString());
                     }
