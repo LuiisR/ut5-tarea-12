@@ -1,3 +1,5 @@
+package pkgaeropuerto.modelo;
+
 import java.util.*;
 
 public class Aeropuerto {
@@ -15,11 +17,14 @@ public class Aeropuerto {
      * aerolinea como el vuelo.
      */
     public void addVuelo(String aerolinea, Vuelo vuelo) {
-        if (!vuelos.containsKey(aerolinea)) {
-            vuelos.put(aerolinea, new HashSet<>());
+
+        if (vuelos.containsKey(aerolinea)) {
+            vuelos.get(aerolinea).add(vuelo);
+        } else {
+            Set vueloAerolinea = new TreeSet();
+            vueloAerolinea.add(vuelo);
+            vuelos.put(aerolinea, vueloAerolinea);
         }
-        Set<Vuelo> vuelas = vuelos.get(aerolinea);
-        vuelas.add(vuelo);
     }
 
     /**
@@ -27,13 +32,10 @@ public class Aeropuerto {
      * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
      */
     public void ordenAerolineasAlfabetico() {
-        Set<Map.Entry<String, Set<Vuelo>>> entradas = vuelos.entrySet();
-        for (Map.Entry<String, Set<Vuelo>> v1 : entradas) {
-            String nombreAerolinea = v1.getKey();
-            Set<Vuelo> listaVuelos = v1.getValue();
-            System.out.println(nombreAerolinea);
-            for (Vuelo v : listaVuelos) {
-                System.out.println(v.toString());
+        for (String aerolinea : vuelos.keySet()) {
+            System.out.println(aerolinea);
+            for (Vuelo v1 : vuelos.get(aerolinea)) {
+                System.out.println(v1.toString());
             }
         }
     }
@@ -45,22 +47,15 @@ public class Aeropuerto {
      * @param aerolinea Aerolinea de la que se imprimiran los vuelos regulares
      */
     public void regularPorPlazas(String aerolinea) {
-        if (vuelos.containsKey(aerolinea)) {
-            for (Map.Entry<String, Set<Vuelo>> v1 : vuelos.entrySet()) {
-                Set<Vuelo> listaVuelos = v1.getValue();
-                List<Vuelo> listaVuelosOrdenada = new ArrayList<>(listaVuelos);
-                listaVuelosOrdenada.sort(new Comparator<Vuelo>() {
-                    @Override
-                    public int compare(Vuelo o1, Vuelo o2) {
-                        return o2.getNumPlazas() - o1.getNumPlazas();
-                    }
-                });
-                for (Vuelo v : listaVuelosOrdenada) {
-                    if (v instanceof Regular) {
-                        System.out.println(v.toString());
-                    }
-                }
+        Set<Regular> listaOrdenada = new TreeSet<>(new ComparadorPorPlazas());
+        for (Vuelo v : vuelos.get(aerolinea)) {
+            if (v instanceof Regular) {
+                Regular regular = (Regular) v;
+                listaOrdenada.add(regular);
             }
+        }
+        for (Regular r : listaOrdenada) {
+            System.out.println(r);
         }
     }
 
@@ -71,6 +66,15 @@ public class Aeropuerto {
      */
     public List<Vuelo> plazasLibres() {
         List<Vuelo> nuevo = new ArrayList<>();
+        for (String aerolinea : vuelos.keySet()) {
+            for (Vuelo v : vuelos.get(aerolinea)) {
+                if (v instanceof Regular) {
+                    if (((Regular) v).getnPlazasLibres() > 0) {
+                        nuevo.add(v);
+                    }
+                }
+            }
+        }
         return nuevo;
     }
 
@@ -81,7 +85,17 @@ public class Aeropuerto {
      * @param destino Destino del que se debe sacar la estadistica
      */
     public void estadisticaDestino(String destino) {
+        int contador = 0;
+        for (String aerolinea : vuelos.keySet()) {
+            for (Vuelo v : vuelos.get(aerolinea)) {
+                if (v.getDestino().equalsIgnoreCase(destino)) {
+                    contador++;
+                }
 
+            }
+            System.out.println(contador + " de cada " + vuelos.get(aerolinea).size() + " de la aerolinea " + aerolinea + " vuelan a " + destino);
+            contador = 0;
+        }
     }
 
     /**
@@ -92,6 +106,15 @@ public class Aeropuerto {
      * @return numero de vuelos borrados
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
+        for (String aerolinea : vuelos.keySet()) {
+            for (Vuelo v : vuelos.get(aerolinea)) {
+                if (v instanceof Charter) {
+                    if (((Charter) v).getNif().equalsIgnoreCase(nifEmpresa)) {
+
+                    }
+                }
+            }
+        }
         return 0;
     }
 
@@ -101,7 +124,9 @@ public class Aeropuerto {
      * @param listaVuelos
      */
     public void imprimirListaVuelos(List<Vuelo> listaVuelos) {
-
+        for (Vuelo v : listaVuelos) {
+            System.out.println(v.toString());
+        }
     }
 
     /**
@@ -117,7 +142,7 @@ public class Aeropuerto {
     public void leerFicheroCursos() {
         Scanner entrada = null;
         try {
-            entrada = new Scanner(this.getClass().getResourceAsStream("aviones.txt"));
+            entrada = new Scanner(this.getClass().getResourceAsStream("/aviones.txt"));
             while (entrada.hasNextLine()) {
                 String linea = entrada.nextLine();
                 int pos = linea.indexOf(":");

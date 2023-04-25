@@ -1,3 +1,4 @@
+package pkgaeropuerto.modelo;
 
 public class Regular extends Vuelo{
 
@@ -20,13 +21,23 @@ public class Regular extends Vuelo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Vuelo Regular\n");
         sb.append(super.toString());
         sb.append("Plazas libres: ").append(nPlazasLibres).append('\n');
         return sb.toString();
     }
 
     @Override
-    public int compareTo(Vuelo o) {
-        return this.getDestino().compareTo(o.getDestino());
+    public int compareTo(Vuelo o){
+        if (this.getDestino().compareTo(o.getDestino()) == 0){
+            if (this.getModelo().compareTo(o.getModelo()) == 0){
+                if (this.getNumPlazas() == o.getNumPlazas()){
+                    return 0;
+                }
+                return (this.getNumPlazas() - o.getNumPlazas());
+            }
+            return (this.getModelo().compareTo(o.getModelo()));
+        }
+        return (this.getDestino().compareTo(o.getDestino()));
     }
 }

@@ -1,3 +1,4 @@
+package pkgaeropuerto.modelo;
 
 public class Charter extends Vuelo{
 
@@ -18,13 +19,23 @@ public class Charter extends Vuelo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Vuelo Charter\n");
         sb.append(super.toString());
         sb.append("NIF Empresa: ").append(nif).append('\n');
         return sb.toString();
     }
 
     @Override
-    public int compareTo(Vuelo o) {
-        return this.getDestino().compareTo(o.getDestino());
+    public int compareTo(Vuelo o){
+        if (this.getDestino().compareTo(o.getDestino()) == 0){
+            if (this.getModelo().compareTo(o.getModelo()) == 0){
+                if (this.getNumPlazas() == o.getNumPlazas()){
+                    return 0;
+                }
+                return (this.getNumPlazas() - o.getNumPlazas());
+            }
+            return (this.getModelo().compareTo(o.getModelo()));
+        }
+        return (this.getDestino().compareTo(o.getDestino()));
     }
 }

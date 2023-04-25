@@ -2,6 +2,10 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/Aeropuerto.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/AppAeropuerto.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/Aeropuerto.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/pkgaeropuerto/app/AppAeropuerto.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/pkgaeropuerto/app/AppAeropuerto.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/pkgaeropuerto/app/AppAeropuerto.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/pkgaeropuerto/modelo/Aeropuerto.java" charset="windows-1252" />
   </component>
 </project>

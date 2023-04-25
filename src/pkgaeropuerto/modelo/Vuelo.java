@@ -1,3 +1,5 @@
+package pkgaeropuerto.modelo;
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -55,12 +57,11 @@ public abstract class Vuelo implements Comparable<Vuelo>{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("========\n");
-        sb.append("\n");
-        sb.append("Vuelo ").append(this.getClass());
         sb.append("\n------------\n");
         sb.append("\nDestino: ").append(getDestino());
         sb.append("\nAvion: ").append(getModelo());
         sb.append("\nPlazas: ").append(getNumPlazas()).append("\n");
         return sb.toString();
     }
+
 }
