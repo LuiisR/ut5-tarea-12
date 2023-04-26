@@ -106,16 +106,23 @@ public class Aeropuerto {
      * @return numero de vuelos borrados
      */
     public int borrarVuelosEmpresa(String nifEmpresa) {
-        for (String aerolinea : vuelos.keySet()) {
-            for (Vuelo v : vuelos.get(aerolinea)) {
-                if (v instanceof Charter) {
-                    if (((Charter) v).getNif().equalsIgnoreCase(nifEmpresa)) {
-
+        int contador = 0;
+        Iterator<Map.Entry<String, Set<Vuelo>>> it = vuelos.entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry<String, Set<Vuelo>> entradas = it.next();
+            Iterator<Vuelo> vuelosIterator = entradas.getValue().iterator();
+            while (vuelosIterator.hasNext()){
+                Vuelo v = vuelosIterator.next();
+                if (v instanceof Charter){
+                    String nifABorrar = ((Charter) v).getNif();
+                    if (nifABorrar.equalsIgnoreCase(nifEmpresa)){
+                        vuelosIterator.remove();
+                        contador++;
                     }
                 }
             }
         }
-        return 0;
+        return contador;
     }
 
     /**

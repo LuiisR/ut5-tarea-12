@@ -25,17 +25,5 @@ public class Charter extends Vuelo{
         return sb.toString();
     }
 
-    @Override
-    public int compareTo(Vuelo o){
-        if (this.getDestino().compareTo(o.getDestino()) == 0){
-            if (this.getModelo().compareTo(o.getModelo()) == 0){
-                if (this.getNumPlazas() == o.getNumPlazas()){
-                    return 0;
-                }
-                return (this.getNumPlazas() - o.getNumPlazas());
-            }
-            return (this.getModelo().compareTo(o.getModelo()));
-        }
-        return (this.getDestino().compareTo(o.getDestino()));
-    }
+
 }
