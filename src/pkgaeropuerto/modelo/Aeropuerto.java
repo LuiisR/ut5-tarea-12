@@ -145,6 +145,26 @@ public class Aeropuerto {
         return sb.toString();
     }
 
+    public void imprimirPasajerosPorAerolinea(String aerolinea) {
+        int numTotalPasajeros = 0;
+        int pasajerosRegular = 0;
+        int pasajerosCharter = 0;
+        for (String a : vuelos.keySet()) {
+            if (a.equalsIgnoreCase(aerolinea)) {
+                for (Vuelo v1 : vuelos.get(a)) {
+                    if (v1 instanceof Regular) {
+                        pasajerosRegular = v1.getNumPlazas() - ((Regular) v1).getnPlazasLibres();
+                    } else {
+                        pasajerosCharter = v1.getNumPlazas();
+                    }
+                }
+                numTotalPasajeros += pasajerosCharter + pasajerosRegular;
+            }
+        }
+
+        System.out.print(numTotalPasajeros);
+    }
+
     /**
      * Rellena el mapa haciendo uso de un fichero de texto
      */

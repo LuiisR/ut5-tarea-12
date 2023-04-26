@@ -18,6 +18,10 @@ public class AppAeropuerto {
 		aeropuerto.estadisticaDestino("MAD");
 		System.out.println("\nSe han borrado " + aeropuerto.borrarVuelosEmpresa("98735424") + " vuelos");
 
+		System.out.print("La aerolinea AA ha desplazado a ");
+		aeropuerto.imprimirPasajerosPorAerolinea("AA");
+		System.out.println(" pasajeros.");
+
 	}
 
 }
