@@ -32,12 +32,7 @@ public class Aeropuerto {
      * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
      */
     public void ordenAerolineasAlfabetico() {
-        for (String aerolinea : vuelos.keySet()) {
-            System.out.println(aerolinea);
-            for (Vuelo v1 : vuelos.get(aerolinea)) {
-                System.out.println(v1.toString());
-            }
-        }
+        System.out.println(this.toString());
     }
 
     /**
@@ -108,14 +103,14 @@ public class Aeropuerto {
     public int borrarVuelosEmpresa(String nifEmpresa) {
         int contador = 0;
         Iterator<Map.Entry<String, Set<Vuelo>>> it = vuelos.entrySet().iterator();
-        while (it.hasNext()){
+        while (it.hasNext()) {
             Map.Entry<String, Set<Vuelo>> entradas = it.next();
             Iterator<Vuelo> vuelosIterator = entradas.getValue().iterator();
-            while (vuelosIterator.hasNext()){
+            while (vuelosIterator.hasNext()) {
                 Vuelo v = vuelosIterator.next();
-                if (v instanceof Charter){
+                if (v instanceof Charter) {
                     String nifABorrar = ((Charter) v).getNif();
-                    if (nifABorrar.equalsIgnoreCase(nifEmpresa)){
+                    if (nifABorrar.equalsIgnoreCase(nifEmpresa)) {
                         vuelosIterator.remove();
                         contador++;
                     }
@@ -140,7 +135,14 @@ public class Aeropuerto {
      * Represetación textual del mapa tal y como se muestra en el enunciado
      */
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        for (String aerolinea : vuelos.keySet()) {
+            sb.append(aerolinea).append("\n");
+            for (Vuelo v1 : vuelos.get(aerolinea)) {
+                sb.append(v1.toString());
+            }
+        }
+        return sb.toString();
     }
 
     /**
