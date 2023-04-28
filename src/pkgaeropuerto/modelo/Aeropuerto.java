@@ -159,11 +159,9 @@ public class Aeropuerto {
                     } else if (v1 instanceof Charter) {
                         pasajerosCharter += v1.getNumPlazas();
                     }
-
                 }
                 numTotalPasajeros += pasajerosCharter + pasajerosRegular;
             }
-
         }
 
         System.out.print(numTotalPasajeros);
@@ -173,14 +171,13 @@ public class Aeropuerto {
     public void imprimirVuelosMasPasajerosQueMedia() {
         int totalPlazas = 0;
         double mediaPlazas = 0;
-        int contador = 0;
         for (String aerolinea : vuelos.keySet()) {
             List<Vuelo> vuelosSuperioresALaMedia = new ArrayList<>();
             for (Vuelo v : vuelos.get(aerolinea)) {
                 totalPlazas += v.getNumPlazas();
-                contador++;
+
             }
-            mediaPlazas = (double) totalPlazas / contador;
+            mediaPlazas = (double) totalPlazas / vuelos.get(aerolinea).size();;
             for (Vuelo v : vuelos.get(aerolinea)) {
                 if (v.getNumPlazas() >= mediaPlazas) {
                     vuelosSuperioresALaMedia.add(v);
@@ -188,7 +185,6 @@ public class Aeropuerto {
             }
             System.out.println("La media de plazas de los vuelos de " + aerolinea + " es " + mediaPlazas);
             totalPlazas = 0;
-            contador = 0;
             System.out.println("Los vuelos de " + aerolinea + " con más plazas que la media son:");
             for (Vuelo v : vuelosSuperioresALaMedia) {
                 System.out.println(v);
