@@ -32,7 +32,7 @@ public class Aeropuerto {
      * como vuelos estaran ordenados alfabeticamente (Ver resultados de ejecucion)
      */
     public void ordenAerolineasAlfabetico() {
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     /**
@@ -137,7 +137,9 @@ public class Aeropuerto {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (String aerolinea : vuelos.keySet()) {
+            sb.append("\n");
             sb.append(aerolinea).append("\n");
+            sb.append("========\n");
             for (Vuelo v1 : vuelos.get(aerolinea)) {
                 sb.append(v1.toString());
             }
@@ -153,16 +155,43 @@ public class Aeropuerto {
             if (a.equalsIgnoreCase(aerolinea)) {
                 for (Vuelo v1 : vuelos.get(a)) {
                     if (v1 instanceof Regular) {
-                        pasajerosRegular = v1.getNumPlazas() - ((Regular) v1).getnPlazasLibres();
-                    } else {
-                        pasajerosCharter = v1.getNumPlazas();
+                        pasajerosRegular += v1.getNumPlazas() - ((Regular) v1).getnPlazasLibres();
+                    } else if (v1 instanceof Charter) {
+                        pasajerosCharter += v1.getNumPlazas();
                     }
+
                 }
                 numTotalPasajeros += pasajerosCharter + pasajerosRegular;
             }
+
         }
 
         System.out.print(numTotalPasajeros);
+    }
+
+
+    public void imprimirVuelosMasPasajerosQueMedia() {
+        int totalPlazas = 0;
+        double mediaPlazas = 0;
+        int contador = 0;
+        for (String aerolinea : vuelos.keySet()) {
+            System.out.println("Los vuelos de " + aerolinea + " con más plazas que la media son:");
+            for (Vuelo v : vuelos.get(aerolinea)) {
+
+                totalPlazas += v.getNumPlazas();
+                contador++;
+            }
+            mediaPlazas = (double) totalPlazas / contador;
+            totalPlazas = 0;
+            System.out.println("La media de plazas de los vuelos de " + aerolinea + " es " + mediaPlazas);
+            contador = 0;
+            for (Vuelo v : vuelos.get(aerolinea)) {
+                if (v.getNumPlazas() >= mediaPlazas){
+                    System.out.println(v);
+                }
+            }
+        }
+
     }
 
     /**

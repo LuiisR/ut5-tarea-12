@@ -21,7 +21,7 @@ public class Regular extends Vuelo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Vuelo Regular\n");
+        sb.append("\nVuelo Regular");
         sb.append(super.toString());
         sb.append("Plazas libres: ").append(nPlazasLibres).append('\n');
         return sb.toString();

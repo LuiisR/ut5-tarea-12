@@ -16,11 +16,15 @@ public class AppAeropuerto {
 		aeropuerto.imprimirListaVuelos(aeropuerto.plazasLibres());
 		System.out.println("\nEstadistica de vuelos a Madrid\n");
 		aeropuerto.estadisticaDestino("MAD");
-		System.out.println("\nSe han borrado " + aeropuerto.borrarVuelosEmpresa("98735424") + " vuelos");
-
+		//System.out.println("\nSe han borrado " + aeropuerto.borrarVuelosEmpresa("98735424") + " vuelos");
+		System.out.println();
 		System.out.print("La aerolinea AA ha desplazado a ");
 		aeropuerto.imprimirPasajerosPorAerolinea("AA");
 		System.out.println(" pasajeros.");
+		System.out.println();
+		aeropuerto.imprimirVuelosMasPasajerosQueMedia();
+
+
 
 	}
 
