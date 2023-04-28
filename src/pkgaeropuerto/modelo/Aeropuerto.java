@@ -175,21 +175,25 @@ public class Aeropuerto {
         double mediaPlazas = 0;
         int contador = 0;
         for (String aerolinea : vuelos.keySet()) {
-            System.out.println("Los vuelos de " + aerolinea + " con más plazas que la media son:");
+            List<Vuelo> vuelosSuperioresALaMedia = new ArrayList<>();
             for (Vuelo v : vuelos.get(aerolinea)) {
-
                 totalPlazas += v.getNumPlazas();
                 contador++;
             }
             mediaPlazas = (double) totalPlazas / contador;
-            totalPlazas = 0;
-            System.out.println("La media de plazas de los vuelos de " + aerolinea + " es " + mediaPlazas);
-            contador = 0;
             for (Vuelo v : vuelos.get(aerolinea)) {
-                if (v.getNumPlazas() >= mediaPlazas){
-                    System.out.println(v);
+                if (v.getNumPlazas() >= mediaPlazas) {
+                    vuelosSuperioresALaMedia.add(v);
                 }
             }
+            System.out.println("La media de plazas de los vuelos de " + aerolinea + " es " + mediaPlazas);
+            totalPlazas = 0;
+            contador = 0;
+            System.out.println("Los vuelos de " + aerolinea + " con más plazas que la media son:");
+            for (Vuelo v : vuelosSuperioresALaMedia) {
+                System.out.println(v);
+            }
+
         }
 
     }
