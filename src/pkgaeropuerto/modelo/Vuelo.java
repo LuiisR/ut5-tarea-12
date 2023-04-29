@@ -7,16 +7,22 @@ public abstract class Vuelo implements Comparable<Vuelo>{
     private String destino;
     private String modelo;
     private int numPlazas;
+    private double precio;
 
-    public Vuelo(String destino, String modelo, int numPlazas) {
+    public Vuelo(String destino, String modelo, int numPlazas, double precio) {
         this.destino = destino;
         this.modelo = modelo;
         this.numPlazas = numPlazas;
+        this.precio = precio;
     }
 
 
     public String getDestino() {
         return destino;
+    }
+
+    public double getPrecio() {
+        return precio;
     }
 
     @Override

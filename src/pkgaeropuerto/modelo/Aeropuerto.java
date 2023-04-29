@@ -177,7 +177,7 @@ public class Aeropuerto {
                 totalPlazas += v.getNumPlazas();
 
             }
-            mediaPlazas = (double) totalPlazas / vuelos.get(aerolinea).size();;
+            mediaPlazas = (double) totalPlazas / vuelos.get(aerolinea).size();
             for (Vuelo v : vuelos.get(aerolinea)) {
                 if (v.getNumPlazas() >= mediaPlazas) {
                     vuelosSuperioresALaMedia.add(v);
@@ -200,7 +200,7 @@ public class Aeropuerto {
     public void leerFicheroCursos() {
         Scanner entrada = null;
         try {
-            entrada = new Scanner(this.getClass().getResourceAsStream("/aviones.txt"));
+            entrada = new Scanner(this.getClass().getResourceAsStream("/ut5-tarea12ter-aviones.txt"));
             while (entrada.hasNextLine()) {
                 String linea = entrada.nextLine();
                 int pos = linea.indexOf(":");
@@ -209,12 +209,13 @@ public class Aeropuerto {
                 String destino = vuelo[1];
                 String avion = vuelo[2];
                 int plazas = Integer.parseInt(vuelo[3].trim());
+                double precio = Double.parseDouble(vuelo[5].trim());
                 if (vuelo[0].equals("R")) {
                     int plazasLibres = Integer.parseInt(vuelo[4].trim());
-                    this.addVuelo(aerolinea, new Regular(destino, avion, plazas, plazasLibres));
+                    this.addVuelo(aerolinea, new Regular(destino, avion, plazas, precio, plazasLibres));
                 } else {
                     String nifEmpresa = vuelo[4];
-                    this.addVuelo(aerolinea, new Charter(destino, avion, plazas, nifEmpresa));
+                    this.addVuelo(aerolinea, new Charter(destino, avion, plazas, precio, nifEmpresa));
                 }
             }
 
