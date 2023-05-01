@@ -24,8 +24,6 @@ public class AppAeropuerto {
 		System.out.println();
 		aeropuerto.imprimirVuelosMasPasajerosQueMedia();
 
-
-
 	}
 
 }
